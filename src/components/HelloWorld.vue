@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div>Hello World!</div>
-    <b-button>Click Me</b-button>
   </div>
 </template>
 
