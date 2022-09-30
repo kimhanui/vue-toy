@@ -6,15 +6,12 @@
       <p class="control has-icons-right">
         <input class="input is-rounded" type="text" placeholder="search..." />
         <span class="icon is-small is-right">
-          <i class="fas fa-check"></i>
-          <!-- <font-awesome-icon icon="fa-solid fa-house" /> -->
+          <i class="fas fa-user-secret"></i>
         </span>
       </p>
     </div>
     <div class="navbar-end">END</div>
   </nav>
-            sss<i class="fas fa-check"></i><font-awesome-icon icon="fa-solid fa-user-secret" />
-
 </div>
 </template>
 
