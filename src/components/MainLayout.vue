@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div class="container is-max-desktop" style="background-color: grey; width:700px;">
+    <!-- <v-for="cardList"  -->
+      <card-list></card-list>
   </div>
 </template>
 
 <script>
+import CardList from './CardList.vue';
 export default {
-  name: "HelloWorld",
+  components: { CardList },
+  name: "MainLayout",
 };
 </script>
 
