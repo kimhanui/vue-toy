@@ -1,18 +1,16 @@
 <template>
   <div>
-    <div class="columns" style="padding: 10px">
+    <div class="columns" style="margin: 0% 4%;">
       <!-- left -->
       <div class="column" id="left-column">
-        <nav navbar>
+        <nav class="navbar">
           <div class="navbar-brand">
-            <div class="navbar-item">
-              <a href="/">
-                <img
-                  id="logo-img"
-                  src="https://see.fontimg.com/api/renderfont4/w1OB8/eyJyIjoiZnMiLCJoIjoxMzAsInciOjIwMDAsImZzIjo2NSwiZmdjIjoiIzAwMDAwMCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bG9nbw/millenia-personal-use.png"
-                />
-              </a>
-            </div>
+            <a href="/">
+              <img
+                id="logo-img"
+                src="https://see.fontimg.com/api/renderfont4/w1OB8/eyJyIjoiZnMiLCJoIjoxMzAsInciOjIwMDAsImZzIjo2NSwiZmdjIjoiIzAwMDAwMCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/bG9nbw/millenia-personal-use.png"
+              />
+            </a>
             <div class="navbar-item">
               <a href="https://github.com/kimhanui/vue-toy">
                 <span class="icon is-large">
@@ -25,13 +23,12 @@
       </div>
       <!-- center -->
       <div class="column" id="center-column">
-        <nav navbar>
-          <div class="navbar-item is-expanded">
+        <nav class="navbar" >
+          <div class="navbar-item" style="width:100%; display:block;">
             <p :class="inputStyleClass">
               <input
                 class="input is-rounded"
                 type="text"
-                size="50"
                 :value="searchText"
                 @input="onInput"
                 @keydown.enter="search"
@@ -47,14 +44,13 @@
         </nav>
       </div>
       <!-- right -->
-      <div class="column" id="right-column">
-        <nav navbar>
-          <div class="navbar-menu">
-            <div class="navbar-start"></div>
-            <div class="navbar-end">
-              <a href="https://github.com/kimhanui/vue-toy">
+      <div class="column" >
+        <nav class="navbar" id="right-column">
+          <div class="navbar-brand" >
+            <div class="navbar-item">
+              <a href="/my/info">
                 <span class="icon is-large">
-                  <i class="fab fa-2x fa-github-alt"></i>
+                  <i class="fas fa-2x fa-user"></i>
                 </span>
               </a>
             </div>
@@ -110,11 +106,7 @@ export default {
   width: auto;
   height: 56px;
 }
-
-/* #center-column { */
-#colum {
-  display: flex;
-  align-items: center;
-  text-align: center;
-}
+#right-column{
+  float: right;
+} 
 </style>

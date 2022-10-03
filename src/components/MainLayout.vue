@@ -1,5 +1,5 @@
 <template>
-  <div class="container is-max-desktop" style="background-color: grey; width:700px;">
+  <div class="container is-max-desktop" style="width:700px;">
       <card-list></card-list>
   </div>
 </template>
