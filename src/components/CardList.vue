@@ -20,8 +20,6 @@ export default {
     mounted(){
         console.log("MOUNTED START")
         this.getContents()
-        console.log("MOUNTED END", JSON.stringify(this.contents))
-
     },
     methods:{
         getContents(){ // TODO : chnage to api call
