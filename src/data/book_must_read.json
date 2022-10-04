@@ -1,0 +1,16 @@
+{
+  "contents": [
+    {
+      "title": "총균쇠",
+      "link": "http://google.co.kr",
+      "genre": "과학",
+      "read_dt": null,
+      "willing_yn": 0,
+      "must_read_yn": 1,
+      "recommend_yn": 0
+    }
+  ],
+  "totalPage": 2,
+  "page": 2,
+  "size": 10
+}

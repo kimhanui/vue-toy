@@ -1,0 +1,34 @@
+{
+    "contents": [
+    {
+        "title": "꼬마 마법사 레미",
+        "link": "http://google.co.kr",
+        "genre": "판타지",
+        "read_dt": "2022-07-06",
+        "willing_yn": 0,
+        "must_read_yn": 1,
+        "recommend_yn": 1
+    },
+    {
+        "title": "꼬마 마법사 레미2",
+        "link": "http://google.co.kr",
+        "genre": "판타지",
+        "read_dt": "2022-07-12",
+        "willing_yn": 0,
+        "must_read_yn": 1,
+        "recommend_yn": 0
+    },
+    {
+        "title": "꼬마 마법사 레미3",
+        "link": "http://google.co.kr",
+        "genre": "판타지",
+        "read_dt": "2022-07-14",
+        "willing_yn": 1,
+        "must_read_yn": 0,
+        "recommend_yn": 0
+    }
+    ],
+    "totalPage": 11,
+    "page": 11,
+    "size": 10
+}   

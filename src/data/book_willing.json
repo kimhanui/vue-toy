@@ -1,0 +1,16 @@
+{
+  "contents": [
+    {
+      "title": "파이 이야기",
+      "link": "http://google.co.kr",
+      "genre": "감동",
+      "read_dt": null,
+      "willing_yn": 1,
+      "must_read_yn": 0,
+      "recommend_yn": 0
+    }
+  ],
+  "totalPage": 8,
+  "page": 8,
+  "size": 10
+}
