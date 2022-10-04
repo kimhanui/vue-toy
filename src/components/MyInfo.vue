@@ -10,6 +10,7 @@
           style="float: right; display: block"
           >수정</b-button
         >
+        <!-- TODO create 수정 dialoge -->
       </div>
       <div class="tile is-ancestor">
         <div class="tile is-vertical">
@@ -25,16 +26,6 @@
             </article>
 
             <article class="tile is-child">
-              <!-- <div class="block">
-                <span class="subtitle">내 정보</span>
-                <b-button
-                  size="is-small"
-                  type="is-danger is-light"
-                  style="float: right; display: block"
-                  >수정</b-button
-                >
-              </div> -->
-
               <div class="field is-horizontal">
                 <div class="field-label is-small">
                   <label class="label">Id / Pw</label>
@@ -129,7 +120,8 @@
                 <div class="field-body">
                   <!-- TagInput - Autocomplete 사용하기 -->
                   <b-field>
-                    <b-taginput style="width: 100%"
+                    <b-taginput
+                      style="width: 100%"
                       size="is-small"
                       v-model="tags"
                       :data="filteredTags"
@@ -161,25 +153,25 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽은 책</p>
-                    <p class="title">108</p>
+                    <p class="title"><a class="custom-a" @click="getCompletedBooks">108</a></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">추천한 책</p>
-                    <p class="title">11</p>
+                    <p class="title"><a class="custom-a" @click="getRecommendedBooks">11</a></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽고 싶은 책</p>
-                    <p class="title">3</p>
+                    <p class="title"><a class="custom-a" @click="getWillingBooks">3</a></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽어야하는 책</p>
-                    <p class="title">1</p>
+                    <p class="title"><a class="custom-a" @click="getMustReadBook">1</a></p>
                   </div>
                 </div>
               </div>
@@ -188,14 +180,28 @@
         </div>
       </div>
     </div>
+    <!-- TODO 조회 결과 컴포넌트 사용 -->
+    <my-info-statistic
+      v-if="p_title != null && p_results != null"
+      :p_title="p_title"
+      :p_results="p_results"
+    ></my-info-statistic>
   </div>
 </template>
 <script>
-const tagData = require("../data/sample.json");
+import MyInfoStatistic from "./MyInfoPagination.vue";
+const tagData = require("../data/tag.json");
+const book = require("../data/book.json");
+const book_willing = require("../data/book_willing.json");
+const book_recommend = require("../data/book_recommend.json");
+const book_must_read = require("../data/book_must_read.json");
 export default {
+  components: { MyInfoStatistic },
   name: "MyInfo",
   data() {
     return {
+      p_title: null,
+      p_results: null,
       errMsgActive: {
         id: false,
         pw: false,
@@ -209,12 +215,32 @@ export default {
   methods: {
     getFilteredTags(text) {
       this.filteredTags = tagData.filter((option) => {
-        return (
-          option
-            .toString()
-            .indexOf(text.toLowerCase()) >= 0
-        );
+        return option.toString().indexOf(text.toLowerCase()) >= 0;
       });
+    },
+    /* TODO : chage to api call */
+    getCompletedBooks() {
+      this.p_title = "읽은 책";
+      this.p_results = book
+      console.log(this.p_title, this.p_results)
+
+    },
+    getRecommendedBooks() {
+      this.p_title = "추천한 책";
+      this.p_results = book_recommend
+      console.log(this.p_title, this.p_results)
+    },
+    getWillingBooks() {
+      this.p_title = "읽고 싶은 책";
+      this.p_results = book_willing
+      console.log(this.p_title, this.p_results)
+
+    },
+    getMustReadBook() {
+      this.p_title = "읽어야하는 책";
+      this.p_results = book_must_read
+      console.log(this.p_title, this.p_results)
+
     },
   },
 };
@@ -227,5 +253,11 @@ export default {
   .b-tooltip {
     margin-bottom: 0.5em;
   }
+}
+.custom-a {
+  text-decoration: none !important;
+}
+.custom-a:hover {
+  text-decoration: underline !important;
 }
 </style>
