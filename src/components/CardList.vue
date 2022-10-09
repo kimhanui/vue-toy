@@ -8,7 +8,10 @@
     </div>
 </template>
 <script>
+const card_list=require("../data/card_list.json");
+
 import ContentCard from './ContentCard.vue'
+
 export default {
   components: { ContentCard },
     name: 'CardList',
@@ -22,36 +25,8 @@ export default {
         this.getContents()
     },
     methods:{
-        getContents(){ // TODO : chnage to api call
-            this.contents = [
-                {
-                    content_sq: 1,
-                    content_img: "https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-                    title: "고양이 집사가 될 준비 되셨나요?",
-                    author: "user1",
-                    profile_img: "",
-                    reg_dt: "2022-10-02T03:00:02",
-                    description: 'lorem ipsum...'
-                },
-                {
-                    content_sq: 2,
-                    content_img: "https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg",
-                    title: "ddd",
-                    author: "user2",
-                    profile_img: "",
-                    reg_dt: "2022-10-02T11:00:02",
-                    description: 'lorem ipsum...'
-                },
-                {
-                    content_sq: 3,
-                    content_img: "https://cdn.pixabay.com/photo/2016/11/08/05/20/sunset-1807524_1280.jpg",
-                    title: "역경 끝에 고난이 온다.",
-                    author: "user3",
-                    profile_img: "",
-                    reg_dt: "2022-10-02T12:00:02",
-                    description: 'lorem ipsum...'
-                },
-            ]
+        getContents(){ // TODO : change to api call
+            this.contents = card_list.contents
         },
     },
 }
