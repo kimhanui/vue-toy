@@ -25,6 +25,18 @@ Vue.mixin({
         type: "is-success",
       });
     },
+    openModal(name) {
+      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
+        this.modals[name] = true;
+        document.querySelector("html").classList.add('is-clipped');
+      }
+    },
+    closeModal(name) {
+      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
+        this.modals[name] = false;
+        document.querySelector("html").classList.remove('is-clipped');
+      }
+    },
   },
 });
 
