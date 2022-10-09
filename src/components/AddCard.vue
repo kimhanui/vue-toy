@@ -74,7 +74,6 @@ export default {
       window.location.href = '/'
     },
     isFormValid(){
-      // console.log("TITLE", this.title, "CONTENT", this.content)
       if(this.title === null || this.title === ''){
         // alert
         this.openDangerMsg('제목을 채워주세요')

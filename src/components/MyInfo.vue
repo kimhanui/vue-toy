@@ -357,17 +357,6 @@ export default {
       });
       this.closeModal("editPassword");
     },
-    openModal(name) {
-      console.log("OPEN MODAL", this.modals[name]);
-      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
-        this.modals[name] = true;
-      }
-    },
-    closeModal(name) {
-      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
-        this.modals[name] = false;
-      }
-    },
   },
 };
 </script>
