@@ -8,6 +8,7 @@
           size="is-small"
           type="is-danger is-light"
           style="float: right; display: block"
+          @click="openModal('editMyInfo')"
           >수정</b-button
         >
         <!-- TODO create 수정 dialoge -->
@@ -47,7 +48,7 @@
                   </div>
                   <div class="field">
                     <div class="control">
-                      <button class="button is-small">비밀번호 수정</button>
+                      <button class="button is-small" @click="openModal('editPassword')">비밀번호 수정</button>
                     </div>
                   </div>
                 </div>
@@ -147,31 +148,41 @@
               </article>
             </div>
           </div>
+
+          <!-- statistics -->
           <div class="tile is-parent">
             <article class="tile is-child notification">
               <div class="level">
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽은 책</p>
-                    <p class="title"><a class="custom-a" @click="getCompletedBooks">108</a></p>
+                    <p class="title">
+                      <a class="custom-a" @click="getCompletedBooks">108</a>
+                    </p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">추천한 책</p>
-                    <p class="title"><a class="custom-a" @click="getRecommendedBooks">11</a></p>
+                    <p class="title">
+                      <a class="custom-a" @click="getRecommendedBooks">11</a>
+                    </p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽고 싶은 책</p>
-                    <p class="title"><a class="custom-a" @click="getWillingBooks">3</a></p>
+                    <p class="title">
+                      <a class="custom-a" @click="getWillingBooks">3</a>
+                    </p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">읽어야하는 책</p>
-                    <p class="title"><a class="custom-a" @click="getMustReadBook">1</a></p>
+                    <p class="title">
+                      <a class="custom-a" @click="getMustReadBook">1</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -180,27 +191,114 @@
         </div>
       </div>
     </div>
-    <!-- TODO 조회 결과 컴포넌트 사용 -->
-    <my-info-statistic
-      v-if="p_title != null && p_results != null"
-      :p_title="p_title"
+    <my-statistics
+      v-if="p_type != null && p_results != null"
+      :p_type="p_type"
       :p_results="p_results"
-    ></my-info-statistic>
+    ></my-statistics>
+
+    <!-- modal -->
+    <template v-if="modals.editMyInfo">
+      <div id="editMyInfo" class="modal is-active">
+        <div class="modal-background" @click="closeModal('editMyInfo')"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">내 정보 수정</p>
+          </header>
+          <section class="modal-card-body">수정하시겠습니까?</section>
+          <footer class="modal-card-foot">
+            <button class="button is-danger" @click="editMyInfo()">수정</button>
+            <button class="button" @click="closeModal('editMyInfo')">
+              취소
+            </button>
+          </footer>
+        </div>
+      </div>
+    </template>
+
+    <template v-if="modals.editPassword">
+      <div id="editPassword" class="modal is-active">
+        <div class="modal-background" @click="closeModal('editPassword')"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">비밀번호 수정</p>
+          </header>
+          <section class="modal-card-body">
+            <div class="field is-horizontal">
+              <div class="field-label ">
+                <label class="label">현재 비밀번호</label>
+              </div>
+              <div class="field-body">
+                <div class="field" style="width: 100%">
+                  <div class="control is-expanded">
+                    <input
+                      class="input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label">새 비밀번호</label>
+              </div>
+              <div class="field-body">
+                <div class="field" style="width: 100%">
+                  <div class="control is-expanded">
+                    <input
+                      class="input "
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label ">
+                <label class="label">재입력</label>
+              </div>
+              <div class="field-body">
+                <div class="field" style="width: 100%">
+                  <div class="control is-expanded">
+                    <input
+                      class="input "
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-danger" @click="editPassword()">수정</button>
+            <button class="button" @click="closeModal('editPassword')">
+              취소
+            </button>
+          </footer>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 <script>
-import MyInfoStatistic from "./MyInfoPagination.vue";
+import MyStatistics from "./MyStatistics.vue";
 const tagData = require("../data/tag.json");
 const book = require("../data/book.json");
 const book_willing = require("../data/book_willing.json");
 const book_recommend = require("../data/book_recommend.json");
 const book_must_read = require("../data/book_must_read.json");
 export default {
-  components: { MyInfoStatistic },
+  components: { MyStatistics },
   name: "MyInfo",
   data() {
     return {
-      p_title: null,
+      p_type: null,
       p_results: null,
       errMsgActive: {
         id: false,
@@ -210,6 +308,10 @@ export default {
       filteredTags: tagData,
       isSelectOnly: false,
       tags: [],
+      modals: {
+        editMyInfo: false,
+        editPassword: false,
+      },
     };
   },
   methods: {
@@ -220,27 +322,51 @@ export default {
     },
     /* TODO : chage to api call */
     getCompletedBooks() {
-      this.p_title = "읽은 책";
-      this.p_results = book
-      console.log(this.p_title, this.p_results)
-
+      this.p_type = 1; //읽은 책
+      this.p_results = book;
+      console.log(this.p_type, this.p_results);
     },
     getRecommendedBooks() {
-      this.p_title = "추천한 책";
-      this.p_results = book_recommend
-      console.log(this.p_title, this.p_results)
+      this.p_type = 2; //추천한 책
+      this.p_results = book_recommend;
+      console.log(this.p_type, this.p_results);
     },
     getWillingBooks() {
-      this.p_title = "읽고 싶은 책";
-      this.p_results = book_willing
-      console.log(this.p_title, this.p_results)
-
+      this.p_type = 3; //"읽고 싶은 책";
+      this.p_results = book_willing;
+      console.log(this.p_type, this.p_results);
     },
     getMustReadBook() {
-      this.p_title = "읽어야하는 책";
-      this.p_results = book_must_read
-      console.log(this.p_title, this.p_results)
-
+      this.p_type = 4; //"읽어야하는 책";
+      this.p_results = book_must_read;
+      console.log(this.p_type, this.p_results);
+    },
+    editMyInfo() {
+      //TODO api call
+      this.$buefy.toast.open({
+        message: "수정되었습니다!",
+        type: "is-success",
+      });
+      this.closeModal("editMyInfo");
+    },
+    editPassword() {
+      //TODO api call
+      this.$buefy.toast.open({
+        message: "수정되었습니다!",
+        type: "is-success",
+      });
+      this.closeModal("editPassword");
+    },
+    openModal(name) {
+      console.log("OPEN MODAL", this.modals[name]);
+      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
+        this.modals[name] = true;
+      }
+    },
+    closeModal(name) {
+      if (Object.prototype.hasOwnProperty.call(this.modals, name)) {
+        this.modals[name] = false;
+      }
     },
   },
 };
@@ -259,5 +385,8 @@ export default {
 }
 .custom-a:hover {
   text-decoration: underline !important;
+}
+.modal-card-foot {
+  float: right;
 }
 </style>
