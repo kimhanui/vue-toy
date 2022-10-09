@@ -18,11 +18,26 @@
           <div class="tile is-parent">
             <article class="tile is-child is-4">
               <!-- 내 사진, 좋은 문구 넣어주기 -->
-              <figure class="image" style="width: 90%">
+              <figure class="image" style="width: 90%;">
                 <img
                   class="is-rounded"
                   src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
                 />
+                <div class="file is-white" style="position:absolute; bottom: 10px; right: 0px">
+                <label class="file-label">
+                  <input
+                  class="file-input"
+                  type="file"
+                  name="resume"
+                  @change="handleFile"
+                  />
+                  <span class="file-cta" style="padding: 0px 11px; border: 1px solid #d0d7de;">
+                    <span class="file-icon" style="margin: 0px;">
+                      <i class="fas fa-edit" ></i>
+                    </span>
+                  </span>
+                </label>
+                </div>
               </figure>
             </article>
 
@@ -356,6 +371,9 @@ export default {
         type: "is-success",
       });
       this.closeModal("editPassword");
+    },
+    handleFile(e) {
+      this.fileName = e.target.files[0].name;
     },
   },
 };

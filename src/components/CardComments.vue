@@ -4,7 +4,7 @@
     <article class="media">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img class="is-rounded" src="https://cdn.pixabay.com/photo/2017/12/31/15/56/portrait-3052641_960_720.jpg" />
+          <img class="is-rounded" src="https://promotionjobs.sales-port.com/wp-content/uploads/2021/11/alexander-hipp-iEEBWgY_6lA-unsplash4.jpg" />
         </p>
       </figure>
       <div class="media-content" style="color: #FFFFFF">
