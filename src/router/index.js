@@ -5,16 +5,14 @@ import MyInfo from '../components/MyInfo.vue'
 import MyStatistics from '../components/MyStatistics.vue'
 import MyPagination from '../components/MyPagination.vue'
 import AddCard from '../components/AddCard.vue'
+import CardComments from '../components/CardComments.vue'
 import ContentCard from '../components/ContentCard.vue'
-import CardList from '../components/CardList.vue'
 import LayoutHeader from '../components/LayoutHeader.vue'
-import LayoutFooter from '../components/LayoutFooter.vue'
 
 Vue.use(VueRouter)
 Vue.component(LayoutHeader.name, LayoutHeader)
-Vue.component(LayoutFooter.name, LayoutFooter)
 Vue.component(ContentCard.name, ContentCard)
-Vue.component(CardList.name, CardList)
+Vue.component(CardComments.name, CardComments)
 Vue.component(MyStatistics.name, MyStatistics)
 Vue.component(MyPagination.name, MyPagination)
 
