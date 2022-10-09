@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="columns" style="margin: 0% 4%;">
+    <div class="columns" style="margin: 0% 4%">
       <!-- left -->
       <div class="column" id="left-column">
         <nav class="navbar">
@@ -23,8 +23,8 @@
       </div>
       <!-- center -->
       <div class="column" id="center-column">
-        <nav class="navbar" >
-          <div class="navbar-item" style="width:100%; display:block;">
+        <nav class="navbar">
+          <div class="navbar-item" style="width: 100%; display: block">
             <p :class="inputStyleClass">
               <input
                 class="input is-rounded"
@@ -44,9 +44,16 @@
         </nav>
       </div>
       <!-- right -->
-      <div class="column" >
+      <div class="column">
         <nav class="navbar" id="right-column">
-          <div class="navbar-brand" >
+          <div class="navbar-brand">
+            <div class="navbar-item">
+              <a href="/add/card">
+              <span class="icon is-large">
+                <i class="fas fa-2x fa-plus-circle"></i>
+              </span>
+              </a>
+            </div>
             <div class="navbar-item">
               <a href="/my/info">
                 <span class="icon is-large">
@@ -106,7 +113,7 @@ export default {
   width: auto;
   height: 56px;
 }
-#right-column{
+#right-column {
   float: right;
-} 
+}
 </style>
