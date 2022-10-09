@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="box">
       <div class="pagination is-centered">
         <a class="pagination-previous">이전10개</a>
         <a class="pagination-next">다음10개</a>
@@ -26,15 +25,15 @@
           </li>
         </ul>
       </div>
-    </div>
   </div>
 </template>
 <script>
 export default {
-  name: "MyInfoPagination",
+  name: "MyPagination",
   props: {
-    p_title: null, //조회 항목
+    // p_type: null, //조회 항목
     p_results: {
+      // contents: null,
       totalPage: null, //총 페이지 수
       page: null, //현재 페이지
       size: null,
