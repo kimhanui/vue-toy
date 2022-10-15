@@ -1,12 +1,13 @@
 <template>
   <div class="container is-max-desktop" style="width: 700px">
-    <div v-if="contents != null">
+    <div v-if="contents">
       <div v-for="(item, index) in contents" :key="index">
-        <content-card style="overflow:hidden" :contents="item" :isMainList="true" @clickCard="onClickCard(index)"/>
+        <content-card style="overflow:hidden" :contents="item" :isMainList="true" :idNum="index" @clickCard="onClickCard(index)"/>
       </div>
     </div>
+    <scroll-observer @intersect="getContents()" />
 
-    <!-- modal -->
+    <!-- modal -->  
     <template v-if="modals.selectedCard">
       <div class="modal is-active ">
         <div class="modal-background" @click="closeModal('selectedCard')"></div>
@@ -32,9 +33,10 @@ import CardComments from './CardComments.vue';
 const card_list = require("../data/card_list.json");
 
 import ContentCard from "./ContentCard.vue";
+import ScrollObserver from './ScrollObserver.vue';
 
 export default {
-  components: { ContentCard, CardComments },
+  components: { ContentCard, CardComments, ScrollObserver },
   name: "MainLayout",
   data() {
     return {
@@ -51,16 +53,16 @@ export default {
   methods: {
     getContents() {
       // TODO : change to api call
-      this.contents = card_list.contents;
-      this.executeIntersectionAPI()
+      console.log("MORE CONTENTS")
+      if(!this.contents){
+        this.contents= []
+      }
+      this.contents.push(...card_list.contents);
     },
     onClickCard(index) {
       console.log("CLICK");
       this.selectedIndex = index;
       this.openModal('selectedCard')
-    },
-    infiniteScroll(){
-
     },
   },
 };

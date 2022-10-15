@@ -1,5 +1,5 @@
 <template>
-  <div class="card scrollTrue" :id="`card${contents.content_sq}`">
+  <div class="card scrollTrue" :id="`card${idNum}`">
     <div class="card-content">
         <div class="media">
             <div class="media-left">
@@ -41,7 +41,7 @@
 <script>
 export default {
     name: "ContentCard",
-    props: ['contents', 'isMainList'],
+    props: ['contents', 'isMainList', 'idNum'],
     created(){
         console.log("CONTENTS", (this.contents.title))
     },
@@ -81,18 +81,13 @@ export default {
 
             let callback = (entries, observer) => {
                 let entry = entries[0]
-                console.log("FOR EACH", entry, entry.isIntersecting)
-
                 if (entry.isIntersecting) { // 뷰포트와 해당 요소가 threshold만큼 교차됐을 때 
-                    console.log("INTERSECT", true)
                     this.intersected = true      
                     observer.unobserve(entry.target)    // entry.target에 대해 관찰 종료
                 }
             };
-                
             this.observer = new IntersectionObserver(callback, observerOption);
-            
-            let elems = document.querySelector('#card'+this.contents.content_sq)
+            let elems = document.querySelector('#card'+this.idNum)
             this.observer.observe(elems)
         },
     }
