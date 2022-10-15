@@ -12,7 +12,7 @@
               />
             </a>
             <div class="navbar-item">
-              <a href="https://github.com/kimhanui/vue-toy">
+              <a href="https://github.com/kimhanui/vue-toy" target="_blank">
                 <span class="icon is-large">
                   <i class="fab fa-2x fa-github-alt"></i>
                 </span>
