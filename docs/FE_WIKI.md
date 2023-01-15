@@ -27,3 +27,48 @@ vue의 가상 돔이 미리 엘리먼트들을 로드하기 때문에 src값을 
 ![image](./resources/observer-lazy-loading.gif)
 ### 해결
 그대로 v-if 디렉티브를 사용해 img 엘리먼트에 미리 값을 넣도록 작성.
+
+
+## 2. 이미지 업로드 구현 방법
+
+Js로 파일 업로드 하는 방법엔
+
+```html
+<input type="file" ref="fileInput" >
+```
+- 엘리먼트 생성 후 해당 태그에 id(여기선 vue의 ref 사용)를 붙여줘서 input에 파일이 업로드 되는 시점을 핸들링하는 것이다.
+- 엘리먼트에 'multiple' 속성 붙여주면 파일 여러개 올릴 수 있음.
+
+기본) onChange 이벤트 핸들링
+```
+const fileInput = this.$refs.fileInput
+
+fileInput.onchange = () => {
+  const selectedFile = fileInput.files[0] // 파일 하나인 경우
+  /* const selectedFile = [...fileInput.files]; // 멀티 파일일 경우 */
+  console.log(selectedFile);
+};
+```
+- 업로드 된 파일은 File 타입으로 여러 속성을 가진다. (name, type- 파일의 MIME유형, size)
+
+
+옵션) 업로드한 파일 미리보기 구현할 경우
+```
+const fileInput = this.$refs.fileInput
+
+const handleFiles = (e) => {
+  const selectedFile = [...fileInput.files];
+  const fileReader = new FileReader();
+
+  fileReader.readAsDataURL(selectedFile[0]);
+
+  fileReader.onload = function (e1) {
+    this.previewImg = fileReader.result;
+  };
+};
+
+fileInput.addEventListener("change", handleFiles);
+```
+- FileReader를 사용하면 읽을 파일을 가리키는 File 또는 Blob 객체를 이용해 파일의 내용을 읽고 사용자의 컴퓨터에 저장할 수 있도록 함.
+    - 참고: [Mozillar](https://developer.mozilla.org/ko/docs/Web/API/FileReader)
+- 위에서 정의한 fileReader 는 onload시 e1.target과 같다.
