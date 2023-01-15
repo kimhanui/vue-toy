@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import Vue from "vue";
 import App from "./App.vue";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 import { router } from "./router/index.js";
+import { store } from "./store/index.js";
 
 Vue.use(Buefy);
 Vue.config.productionTip = false;
@@ -37,10 +39,20 @@ Vue.mixin({
         document.querySelector("html").classList.remove('is-clipped');
       }
     },
+    openSystemModal(bodyText){
+      this.$store.state.systemModal = true;
+      this.$store.state.systemModalBodyText = bodyText
+    },
+    closeSystemModal(bodyText){
+      console.log("CLOSE MODAL")
+      this.$store.state.systemModal = false;
+      this.$store.state.systemModalBodyText = null
+    }
   },
 });
 
 new Vue({
+  store: store,
+  router: router,
   render: (h) => h(App),
-  router,
 }).$mount("#app");

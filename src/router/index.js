@@ -9,7 +9,9 @@ import CardComments from '../components/CardComments.vue'
 import ContentCard from '../components/ContentCard.vue'
 import LayoutHeader from '../components/LayoutHeader.vue'
 import ScrollObserver from '../components/ScrollObserver.vue'
+import SystemModal from '../components/includes/SystemModal.vue'
 
+/* 라우터, 컴포넌트 등록 */
 Vue.use(VueRouter)
 Vue.component(LayoutHeader.name, LayoutHeader)
 Vue.component(ContentCard.name, ContentCard)
@@ -17,6 +19,7 @@ Vue.component(CardComments.name, CardComments)
 Vue.component(MyStatistics.name, MyStatistics)
 Vue.component(MyPagination.name, MyPagination)
 Vue.component(ScrollObserver.name, ScrollObserver)
+Vue.component(SystemModal.name, SystemModal)
 
 export const router = new VueRouter({
     mode: 'history', // default는 hash 모드이다. history 모드를 적용하지 않으면 localhost:8080/#/ 이렇게 표시된다.
