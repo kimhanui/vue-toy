@@ -2,6 +2,7 @@
   <div id="app">
     <layout-header />
     <router-view />
+    <system-modal />
   </div>
 </template>
 

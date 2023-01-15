@@ -4,24 +4,31 @@
       <div class="card-content">
         <div class="field">
           <label class="label">제목</label>
-          <input
-            class="input"
-            v-model="title"
-            placeholder="제목"
-          />
+          <input class="input" v-model="title" placeholder="제목" />
         </div>
         <div class="field">
           <label class="label">내용</label>
-          <textarea class="textarea" v-model="content" rows="20" placeholder="내용..."></textarea>
+          <textarea
+            class="textarea"
+            v-model="content"
+            rows="20"
+            placeholder="내용..."
+          ></textarea>
         </div>
         <div class="field">
           <label class="label">이미지 업로드</label>
+          <div>
+            <img v-for="(data, index) in previewImgs" :key="index"
+              style="height:30px; margin-right: 3px;"
+              :src="data"/>
+          </div>
           <div class="file has-name">
             <label class="file-label">
               <input
                 class="file-input"
                 type="file"
                 name="resume"
+                ref="fileInput"
                 @change="handleFile"
               />
               <span class="file-cta">
@@ -38,7 +45,9 @@
         </div>
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-success" @click="insertCard()">생성</button>
+            <button class="button is-success" @click="insertCard()">
+              생성
+            </button>
           </div>
           <div class="control">
             <button class="button" onclick="location.href='/'">취소</button>
@@ -56,40 +65,55 @@ export default {
       title: null,
       content: null,
       fileName: "파일 없음 ...",
+      fileInputs: [],   // 현재는 1개만 업로드
+      previewImgs: [],  // 현재는 1개만 업로드
     };
   },
-  mounted(){
-  },
+  mounted() {},
   methods: {
-    handleFile(e) {
-      this.fileName = e.target.files[0].name;
+    handleFile() {
+      if(this.$refs.fileInput.files == null){
+        return 
+      }
+      if(this.fileInputs.length == 1){
+        this.openSystemModal("파일은 1개만 등록할 수 있습니다.")
+        return
+      }
+      this.fileInputs = this.$refs.fileInput.files;
+      
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(this.fileInputs[0]);
+      fileReader.onload = () => {
+        this.previewImgs.push(fileReader.result); // 정보: fileReader.result = e1.target.result
+      };
+      this.fileName = this.fileInputs[0].name;
     },
     insertCard() {
-      if(this.isFormValid() === false){
-        return
+      if (this.isFormValid() === false) {
+        return;
       }
 
       /* api call */
 
-      window.location.href = '/'
+      window.location.href = "/";
     },
-    isFormValid(){
-      if(this.title === null || this.title === ''){
+    isFormValid() {
+      if (this.title === null || this.title === "") {
         // alert
-        this.openDangerMsg('제목을 채워주세요')
-        return false
+        this.openDangerMsg("제목을 채워주세요");
+        return false;
       }
-      if(this.content === null || this.content === ''){
-        this.openDangerMsg('내용을 채워주세요')
-        return false
+      if (this.content === null || this.content === "") {
+        this.openDangerMsg("내용을 채워주세요");
+        return false;
       }
-      return true
-    }
+      return true;
+    },
   },
 };
 </script>
 <style>
-.notification{
+.notification {
   margin: 50px;
 }
 </style>
