@@ -16,7 +16,7 @@
           ></textarea>
         </div>
         <div class="field">
-          <label class="label">이미지 업로드</label>
+          <label class="label">이미지 업로드 (선택)</label>
           <div>
             <img v-for="(data, index) in previewImgs" :key="index"
               style="height:30px; margin-right: 3px;"
@@ -43,6 +43,11 @@
             </label>
           </div>
         </div>
+        <!-- TODO: to be worked on `sprint v0.2` -->
+        <!-- <div class="field">
+          <label class="label">책 지정 (선택)</label>
+          <input class="input" placeholder="ex - 이방인" />
+        </div> -->
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-success" @click="insertCard()">
