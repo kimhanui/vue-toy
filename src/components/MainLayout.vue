@@ -4,11 +4,12 @@
       <div v-for="(item, index) in cards.content" :key="index">
         <content-card style="overflow:hidden" :card="item" :isMainList="true" :idNum="index" @clickCard="onClickCard(index)"/>
       </div>
+
+    <scroll-observer @intersect="getContents()" />
     </div>
     <div v-else>
       <div class="center">게시글이 없습니다.</div>
     </div>
-    <scroll-observer v-if="cards" @intersect="getContents()" />
 
     <!-- modal -->  
     <template v-if="modals.selectedCard">
@@ -62,7 +63,7 @@ export default {
       .then(res => {
         if(res.data.content.length > 0){
           this.cards= this.cards ?? {content: []}
-          this.cards.content.push(res.data.content)
+          this.cards.content.push(...res.data.content)
         }
       })
       .catch(err =>{
