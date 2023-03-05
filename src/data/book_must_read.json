@@ -1,5 +1,5 @@
 {
-  "contents": [
+  "content": [
     {
       "title": "총균쇠",
       "link": "http://google.co.kr",
@@ -10,7 +10,7 @@
       "recommend_yn": 0
     }
   ],
-  "totalPage": 2,
+  "total_page": 2,
   "page": 2,
   "size": 10
 }

@@ -9,7 +9,8 @@
         {{ this.$store.state.systemModalBodyText }}
       </section>
       <footer class="modal-card-foot">
-        <button class="button" @click="closeSystemModal()">확인</button>
+        <button class="button" 
+        @click="closeSystemModal()">확인</button>
       </footer>
     </div>
   </div>

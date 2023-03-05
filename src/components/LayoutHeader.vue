@@ -35,7 +35,7 @@
                 placeholder="search..."
               />
               <template v-if="isLoading === false">
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-right is-clickable" @click="search">
                   <i class="fas fa-search"></i>
                 </span>
               </template>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import SearchLayout from './SearchLayout'
 export default {
   name: "LayoutHeader",
   data() {
@@ -79,31 +80,33 @@ export default {
     };
   },
   watch: {
-    isLoading(newVal) {
-      console.log("WATCH", newVal, this.inputStyleClass);
-      if (newVal === true) {
-        this.inputStyleClass = "control has-icons-right is-loading";
-      } else {
-        this.inputStyleClass = "control has-icons-right";
-      }
-    },
+    // isLoading(newVal) {
+    //   console.log("WATCH", newVal, this.inputStyleClass);
+    //   if (newVal === true) {
+    //     this.inputStyleClass = "control has-icons-right is-loading";
+    //   } else {
+    //     this.inputStyleClass = "control has-icons-right";
+    //   }
+    // },
   },
   methods: {
     onInput(event) {
       this.searchText = event.target.value;
     },
     search() {
-      // TODO : chnage to api call
       //loading icon
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        //toast
-        this.$buefy.toast.open({
-          message: "검색되었습니다!",
-          type: "is-success",
-        });
-      }, 3 * 1000);
+      // this.isLoading = true;
+      this.$router.push({name: SearchLayout.name, query:{'search_text': this.searchText}})
+      console.log("search")
+      // Previous Code
+      // setTimeout(() => {
+      //   this.isLoading = false;
+      //   //toast
+      //   this.$buefy.toast.open({
+      //     message: "검색되었습니다!",
+      //     type: "is-success",
+      //   });
+      // }, 3 * 1000);
     },
   },
 };

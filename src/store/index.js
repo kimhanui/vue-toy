@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
   state: {
     systemModal: false,
     systemModalBodyText: null,
+    systemModalRedirect: null,
   },
   mutations: {},
   actions: {},
