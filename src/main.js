@@ -5,9 +5,11 @@ import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 import { router } from "./router/index.js";
 import { store } from "./store/index.js";
+import  axios  from 'axios';
 
 Vue.use(Buefy);
 Vue.config.productionTip = false;
+Vue.prototype.$axios = axios;
 
 // mixin을 사용할 어플리케이션 정의
 Vue.mixin({
@@ -39,14 +41,17 @@ Vue.mixin({
         document.querySelector("html").classList.remove('is-clipped');
       }
     },
-    openSystemModal(bodyText){
+    openSystemModal(bodyText, redirect){
       this.$store.state.systemModal = true;
-      this.$store.state.systemModalBodyText = bodyText
+      this.$store.state.systemModalBodyText = bodyText;
+      this.$store.state.systemModalRedirect = redirect;
     },
-    closeSystemModal(bodyText){
-      console.log("CLOSE MODAL")
+    closeSystemModal(){
       this.$store.state.systemModal = false;
-      this.$store.state.systemModalBodyText = null
+      this.$store.state.systemModalBodyText = null;
+      if(this.$store.state.systemModalRedirect){
+        window.location.href= this.$store.state.systemModalRedirect
+      }
     }
   },
 });
