@@ -1,27 +1,28 @@
 <template>
   <div>
       <div class="pagination is-centered">
-        <a class="pagination-previous">이전10개</a>
-        <a class="pagination-next">다음10개</a>
+        <a class="pagination-previous" @click="goPage(page-10)">이전10개</a>
+        <a class="pagination-next" @click="goPage(page+10)">다음10개</a>
+        
         <ul class="pagination-list">
           <li>
-            <a v-if="page-2 >0" class="pagination-link">{{page-2}}</a>
+            <a v-if="page-1 >0" class="pagination-link" @click="goPage(page-2)">{{page-1}}</a>
           </li>
           <li>
-            <a v-if="page-1 >0" class="pagination-link">{{page-1}}</a>
+            <a v-if="page >0" class="pagination-link" @click="goPage(page-1)">{{page}}</a>
           </li>
           <li>
             <a
               class="pagination-link is-current"
               aria-current="page"
-              >{{page}}</a
+              >{{page+1}}</a
             >
           </li>
           <li>
-            <a v-if="page+1 <= totalPage" class="pagination-link">{{page+1}}</a>
+            <a v-if="page+2 <= total_page" class="pagination-link" @click="goPage(page+1)">{{page+2}}</a>
           </li>
           <li>
-            <a v-if="page+2 <= totalPage" class="pagination-link">{{page+2}}</a>
+            <a v-if="page+3<= total_page" class="pagination-link" @click="goPage(page+2)">{{page+3}}</a>
           </li>
         </ul>
       </div>
@@ -31,10 +32,8 @@
 export default {
   name: "MyPagination",
   props: {
-    // p_type: null, //조회 항목
     p_results: {
-      // contents: null,
-      totalPage: null, //총 페이지 수
+      total_page: null, //총 페이지 수
       page: null, //현재 페이지
       size: null,
     },
@@ -42,15 +41,33 @@ export default {
   data(){
     return {
       page: null,
-      totalPage: null,
+      total_page: null,
     }
   },
-  mounted(){ /* FIXME: MyInfo에서 로드된 후 최초한번만 아래 실행됨.*/
-    this.page = this.p_results.page 
-    this.totalPage = this.p_results.totalPage
+  mounted(){
+    this.page = this.p_results.page
+    this.total_page = this.p_results.total_page
+  },
+  watch:{
+    'p_results': function(newVal){
+      this.page = this.p_results.page
+      this.total_page = this.p_results.total_page
+      if(this.page == this.total_page){
+        this.page -= 1 // display 시 +1 방지
+      }
+      console.log("watch::total_page=", this.total_page)
+    }
   },
   methods:{
-
+    goPage(clickedPage){
+      if(clickedPage > this.total_page){
+        clickedPage = this.total_page 
+      }
+      else if(clickedPage <0 ){
+        clickedPage = 0
+      }
+      this.$emit('goPage', clickedPage)
+    }
   },
 };
 </script>
