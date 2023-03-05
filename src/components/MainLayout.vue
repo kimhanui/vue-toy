@@ -1,11 +1,14 @@
 <template>
   <div class="container is-max-desktop" style="width: 700px">
-    <div v-if="contents">
-      <div v-for="(item, index) in contents" :key="index">
-        <content-card style="overflow:hidden" :contents="item" :isMainList="true" :idNum="index" @clickCard="onClickCard(index)"/>
+    <div v-if="cards">
+      <div v-for="(item, index) in cards.content" :key="index">
+        <content-card style="overflow:hidden" :card="item" :isMainList="true" :idNum="index" @clickCard="onClickCard(index)"/>
       </div>
     </div>
-    <scroll-observer @intersect="getContents()" />
+    <div v-else>
+      <div class="center">게시글이 없습니다.</div>
+    </div>
+    <scroll-observer v-if="cards" @intersect="getContents()" />
 
     <!-- modal -->  
     <template v-if="modals.selectedCard">
@@ -14,7 +17,7 @@
         <div class="modal-card" style="width: 70%; height: 80%;">
           <div class="columns" style="height: 100%; margin: 0px auto;">
             <div class="column is-half">
-              <content-card :contents="contents[selectedIndex]" :isMainList="false"/>
+              <content-card :cards="cards[selectedIndex]" :isMainList="false"/>
             </div>
             <div class="column">
               <div>
@@ -30,21 +33,23 @@
 </template>
 <script>
 import CardComments from './CardComments.vue';
-const card_list = require("../data/card_list.json");
-
 import ContentCard from "./ContentCard.vue";
-import ScrollObserver from './ScrollObserver.vue';
+import ScrollObserver from './includes/ScrollObserver.vue';
 
 export default {
   components: { ContentCard, CardComments, ScrollObserver },
   name: "MainLayout",
   data() {
     return {
-      contents: null,
+      cards: null,
       selectedIndex: null,
       modals: {
         selectedCard: false,
       },
+      requestData:{
+        page: 0
+        , size: 10
+      }
     };
   },
   mounted() {
@@ -52,12 +57,17 @@ export default {
   },
   methods: {
     getContents() {
-      // TODO : change to api call
-      console.log("MORE CONTENTS")
-      if(!this.contents){
-        this.contents= []
-      }
-      this.contents.push(...card_list.contents);
+      this.$axios.get('http://localhost:9090/card/v1.0', {params:this.requestData}, { headers: {
+      }})
+      .then(res => {
+        if(res.data.content.length > 0){
+          this.cards= this.cards ?? {content: []}
+          this.cards.content.push(res.data.content)
+        }
+      })
+      .catch(err =>{
+        this.openSystemModal('게시글 조회 중 오류가 발생하였습니다.\n', err)
+      })
     },
     onClickCard(index) {
       console.log("CLICK");

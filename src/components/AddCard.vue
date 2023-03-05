@@ -98,9 +98,20 @@ export default {
         return;
       }
 
-      /* api call */
-
-      window.location.href = "/";
+      const data = {
+        title : this.title,
+        content : this.content,
+        files : this.fileInputs
+      }
+      this.$axios.post('http://localhost:9090/card/v1.0', data, { headers: {
+        'Content-type': 'multipart/form-data',
+      }})
+      .then(res => {
+        this.openSystemModal('게시글 작성 성공', '/')
+      })
+      .catch(err =>{
+        this.openSystemModal('게시글 생성 중 오류가 발생하였습니다.')
+      })
     },
     isFormValid() {
       if (this.title === null || this.title === "") {
