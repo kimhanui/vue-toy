@@ -21,8 +21,8 @@
     <div class="card-image" @click="$emit('clickCard')">
         <template v-if="intersected">
             <figure class="image is-4by3">
-                <img v-if="card.content_img == null || card.content_img == ''" :src="content_alt_img" alt="content">
-                <img v-else :src="card.content_img" alt="content">            
+                <img v-if="card.img_url == null || card.img_url == ''" :src="content_alt_img" alt="content">
+                <img v-else :src="card.img_url" alt="content">            
             </figure>
         </template>
         <figure class="image">
@@ -65,7 +65,7 @@ export default {
     methods:{
         getDescription(){ /* 메인노출인 카드: 100자 또는 2줄 제한 */
             if(this.isMainList === true){
-                let desc = this.card.description
+                let desc = this.card.content
                 const limit1lines = desc?.indexOf("\n") 
                 const limit2lines = desc?.indexOf("\n",limit1lines+1) 
                 if(0<=limit2lines && limit2lines < 100){
@@ -73,7 +73,7 @@ export default {
                 }
                 return desc?.substring(0,100)+ "..."
             }
-            return this.card.description
+            return this.card.content
         },
         executeIntersectionAPI(){
             const observerOption = {
@@ -90,7 +90,6 @@ export default {
             };
             this.observer = new IntersectionObserver(callback, observerOption);
             let elems = document.querySelector('#card'+this.idNum)
-            console.log("elems:", elems)
             this.observer.observe(elems)
         },
     }

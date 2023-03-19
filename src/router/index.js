@@ -11,6 +11,8 @@ import LayoutHeader from '../components/LayoutHeader.vue'
 import ScrollObserver from '../components/includes/ScrollObserver.vue'
 import SystemModal from '../components/includes/SystemModal.vue'
 import SearchLayout from '../components/SearchLayout.vue'
+import SearchResultBox from '../components/SearchResultBox.vue'
+
 /* 라우터, 컴포넌트 등록 */
 Vue.use(VueRouter)
 Vue.component(LayoutHeader.name, LayoutHeader)
@@ -21,6 +23,7 @@ Vue.component(MyPagination.name, MyPagination)
 Vue.component(ScrollObserver.name, ScrollObserver)
 Vue.component(SystemModal.name, SystemModal)
 Vue.component(SearchLayout.name, SearchLayout)
+Vue.component(SearchResultBox.name, SearchResultBox)
 
 /* 이미 이동할 위치에 있는 경우 발생하는 에러 무시 */
 const originalPush = VueRouter.prototype.push;

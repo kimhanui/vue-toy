@@ -5,7 +5,7 @@
         <content-card style="overflow:hidden" :card="item" :isMainList="true" :idNum="index" @clickCard="onClickCard(index)"/>
       </div>
 
-    <scroll-observer @intersect="getContents()" />
+      <scroll-observer @intersect="getMoreContents()" />
     </div>
     <div v-else>
       <div class="center">게시글이 없습니다.</div>
@@ -18,7 +18,7 @@
         <div class="modal-card" style="width: 70%; height: 80%;">
           <div class="columns" style="height: 100%; margin: 0px auto;">
             <div class="column is-half">
-              <content-card :cards="cards[selectedIndex]" :isMainList="false"/>
+              <content-card :card="cards.content[selectedIndex]" :isMainList="false"/>
             </div>
             <div class="column">
               <div>
@@ -61,17 +61,25 @@ export default {
       this.$axios.get('http://localhost:9090/card/v1.0', {params:this.requestData}, { headers: {
       }})
       .then(res => {
-        if(res.data.content.length > 0){
-          this.cards= this.cards ?? {content: []}
-          this.cards.content.push(...res.data.content)
+        const data = res.data
+        if(data.content.length > 0){
+          const currCards = this.cards?.content ?? []
+          currCards.push(...data.content) //content push
+
+          this.cards = Object.assign(data, {content: currCards})
         }
       })
       .catch(err =>{
         this.openSystemModal('게시글 조회 중 오류가 발생하였습니다.\n', err)
       })
     },
+    getMoreContents(){
+      if(this.cards && this.cards.page <= this.cards.total_page){
+        this.requestData = Object.assign(this.requestData, {page: this.cards.page + 1})
+      }
+      this.getContents()
+    },
     onClickCard(index) {
-      console.log("CLICK");
       this.selectedIndex = index;
       this.openModal('selectedCard')
     },

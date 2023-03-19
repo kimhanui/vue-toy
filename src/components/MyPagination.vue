@@ -2,7 +2,6 @@
   <div>
       <div class="pagination is-centered">
         <a class="pagination-previous" @click="goPage(page-10)">이전10개</a>
-        <a class="pagination-next" @click="goPage(page+10)">다음10개</a>
         
         <ul class="pagination-list">
           <li>
@@ -25,6 +24,7 @@
             <a v-if="page+3<= total_page" class="pagination-link" @click="goPage(page+2)">{{page+3}}</a>
           </li>
         </ul>
+        <a class="pagination-next" @click="goPage(page+10)">다음10개</a>
       </div>
   </div>
 </template>
@@ -50,21 +50,17 @@ export default {
   },
   watch:{
     'p_results': function(newVal){
-      this.page = this.p_results.page
-      this.total_page = this.p_results.total_page
-      if(this.page == this.total_page){
-        this.page -= 1 // display 시 +1 방지
-      }
-      console.log("watch::total_page=", this.total_page)
+      this.page = newVal.page
+      this.total_page = newVal.total_page
     }
   },
   methods:{
     goPage(clickedPage){
       if(clickedPage > this.total_page){
-        clickedPage = this.total_page 
+        clickedPage = this.total_page-1 // last page
       }
       else if(clickedPage <0 ){
-        clickedPage = 0
+        clickedPage = 0 // first page
       }
       this.$emit('goPage', clickedPage)
     }

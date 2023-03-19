@@ -84,7 +84,7 @@ export default {
         this.openSystemModal("파일은 1개만 등록할 수 있습니다.")
         return
       }
-      this.fileInputs = this.$refs.fileInput.files;
+      this.fileInputs = [...this.$refs.fileInput.files];
       
       const fileReader = new FileReader();
       fileReader.readAsDataURL(this.fileInputs[0]);
@@ -98,12 +98,13 @@ export default {
         return;
       }
 
-      const data = {
-        title : this.title,
-        content : this.content,
-        files : this.fileInputs
-      }
-      this.$axios.post('http://localhost:9090/card/v1.0', data, { headers: {
+      const formData = new FormData();
+      formData.append("title", this.title)
+      formData.append("content", this.content)
+      this.fileInputs.forEach(file=>{
+        formData.append("files", file);
+      });
+      this.$axios.post('http://localhost:9090/card/v1.0', formData, { headers: {
         'Content-type': 'multipart/form-data',
       }})
       .then(res => {
